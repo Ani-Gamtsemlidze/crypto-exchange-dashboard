@@ -5,13 +5,18 @@ import PriceChange from "./PriceChange";
 import PriceDirectionIcon from "./PriceDirectionIcon";
 import FavoriteButton from "./FavoriteButton";
 import { useFavorites } from "../hooks/useFavorites";
+import HideButton from "./HideButton";
+import HiddenList from "./HiddenList";
+import { useHidden } from "../hooks/useHidden";
 
 export default function MarketTable() {
   const prices = useBinancePrice();
   const { favorites, toggleFavorite } = useFavorites();
+  const { hidden, toggleHidden } = useHidden();
+
   return (
     <div>
-      {CRYPTO_PAIRS.map((pair) => {
+      {CRYPTO_PAIRS.filter((pair) => !hidden[pair.symbol]).map((pair) => {
         const priceData = prices[pair.symbol];
         return (
           <div key={pair.symbol} className="flex items-center">
@@ -36,9 +41,12 @@ export default function MarketTable() {
               toggleFavorite={() => toggleFavorite(pair.symbol)}
               isFavorite={favorites[pair.symbol]}
             />
+            <HideButton toggleHidden={() => toggleHidden(pair.symbol)} isHidden={false} />
           </div>
         );
       })}
+
+      <HiddenList hidden={hidden} toggleHidden={toggleHidden} />
     </div>
   );
 }
