@@ -3,15 +3,18 @@ import { useBinancePrice } from "../hooks/useBinancePrice";
 import { formatPrice } from "../utils/formatPrice";
 import PriceChange from "./PriceChange";
 import PriceDirectionIcon from "./PriceDirectionIcon";
+import FavoriteButton from "./FavoriteButton";
+import { useFavorites } from "../hooks/useFavorites";
 
 export default function MarketTable() {
   const prices = useBinancePrice();
+  const { favorites, toggleFavorite } = useFavorites();
   return (
     <div>
       {CRYPTO_PAIRS.map((pair) => {
         const priceData = prices[pair.symbol];
         return (
-          <div key={pair.symbol} className="flex">
+          <div key={pair.symbol} className="flex items-center">
             <div className="flex">
               <span>{pair.displaySymbol}</span>
               <span>{pair.name}</span>
@@ -28,6 +31,11 @@ export default function MarketTable() {
                 </div>
               </>
             )}
+
+            <FavoriteButton
+              toggleFavorite={() => toggleFavorite(pair.symbol)}
+              isFavorite={favorites[pair.symbol]}
+            />
           </div>
         );
       })}
