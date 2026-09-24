@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme {
+  --color-bg: #0e1420;
+  --color-border: #273244;
+  --font-display: "Space Grotesk", sans-serif;
+  --color-muted: var(--color-slate-400);
+}
+
+body {
+  font-family: var(--font-display);
+}

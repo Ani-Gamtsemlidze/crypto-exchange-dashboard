@@ -7,11 +7,11 @@ interface FavoriteButtonProps {
 
 export default function FavoriteButton({ toggleFavorite, isFavorite }: FavoriteButtonProps) {
   return (
-    <div onClick={toggleFavorite}>
+    <div onClick={toggleFavorite} className="rounded-md bg-slate-600/15 p-2">
       {isFavorite ? (
         <Star fill="yellow" className="size-4 text-yellow-500" />
       ) : (
-        <Star className="size-4 text-yellow-400" />
+        <Star className="size-4 text-muted" />
       )}
     </div>
   );

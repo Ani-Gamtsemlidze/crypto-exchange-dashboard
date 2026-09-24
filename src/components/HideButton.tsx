@@ -6,8 +6,8 @@ interface HideButtonProps {
 
 export default function HideButton({ toggleHidden, isHidden }: HideButtonProps) {
   return (
-    <div onClick={toggleHidden}>
-      {isHidden ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+    <div onClick={toggleHidden} className="rounded-md bg-slate-600/15 p-2">
+      {isHidden ? <EyeOff className="size-4 text-muted" /> : <Eye className="size-4 text-muted" />}
     </div>
   );
 }

@@ -1,11 +1,15 @@
-import Market from "./components/MarketTable";
+import Header from "./components/Header";
+import MarketTable from "./components/MarketTable";
 
 function App() {
   return (
     <>
-      <main>
-        <h1 className="font-bold">Crypto exchange dashboard</h1>
-        <Market />
+      <main className="min-h-screen bg-bg py-6 text-white">
+        <div className="mx-auto max-w-6xl">
+          <Header />
+
+          <MarketTable />
+        </div>
       </main>
     </>
   );
