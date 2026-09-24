@@ -28,7 +28,7 @@ export default function MarketTableRow({
       <td className="flex items-center px-5 py-3">
         <img
           src={`https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons/svg/color/${pair.icon}.svg`}
-          alt="cryptocurrency"
+          alt={pair.name}
           className="h-8 w-8 object-contain"
         />
         <div className="ml-3 flex flex-col">
