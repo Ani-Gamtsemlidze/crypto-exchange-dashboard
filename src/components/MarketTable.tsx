@@ -54,12 +54,14 @@ export default function MarketTable({ prices }: MarketTableProps) {
   const filteredByTab = sortData.filter((pair) => tabFilter === "all" || favorites[pair.symbol]);
   return (
     <div className="flex flex-col rounded-xl border border-white/10 bg-slate-600/15 backdrop-blur-xl">
-      <div className="mt-4 mb-4 flex items-center justify-between px-5">
-        <h2 className="text-xl">Live Market</h2>
-        <div className="flex">
-          <MarketSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <MarketFilterTabs value={tabFilter} onChange={setTabFilter} />
-          <MarketSort value={sortValue} onChange={setSortValue} />
+      <div className="mx-auto mt-4 flex flex-col items-start">
+        <h2 className="text-lg text-white">Live Market</h2>
+        <div className="my-4">
+          <div className="flex">
+            <MarketSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <MarketFilterTabs value={tabFilter} onChange={setTabFilter} />
+            <MarketSort value={sortValue} onChange={setSortValue} />
+          </div>
         </div>
       </div>
 
