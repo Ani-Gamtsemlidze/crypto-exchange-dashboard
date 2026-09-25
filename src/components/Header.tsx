@@ -1,10 +1,22 @@
+import { Circle } from "lucide-react";
 import logo from "../assets/logo.png";
+import type { SocketStatus } from "../hooks/useBinancePrice";
 
-export default function Header() {
+interface HeaderProps {
+  socketStatus: SocketStatus;
+}
+
+export default function Header({ socketStatus }: HeaderProps) {
   return (
-    <header className="mb-2 flex items-center">
-      <img src={logo} alt="" className="mr-3 h-10 w-10 object-contain" />
-      <h1 className="font-bold text-white capitalize">Crypto exchange dashboard</h1>
+    <header className="mb-2 flex items-center justify-between">
+      <div className="flex items-center">
+        <img src={logo} alt="" className="mr-3 h-10 w-10 object-contain" />
+        <h1 className="font-bold text-white capitalize">Crypto exchange dashboard</h1>
+      </div>
+      <div className="flex items-center">
+        <Circle fill="#00c951" className="mr-2 size-4 text-green-500" />
+        <span className="text-green-500 capitalize">{socketStatus}</span>
+      </div>
     </header>
   );
 }

@@ -1,5 +1,4 @@
 import { CRYPTO_PAIRS } from "../constants/cryptoPairs";
-import { useBinancePrice } from "../hooks/useBinancePrice";
 import { useFavorites } from "../hooks/useFavorites";
 import HiddenList from "./HiddenList";
 import { useHidden } from "../hooks/useHidden";
@@ -8,9 +7,13 @@ import { useState } from "react";
 import MarketSort from "./MarketSort";
 import MarketSearch from "./MarketSearch";
 import MarketFilterTabs from "./MarketFilterTabs";
+import type { MarketPrice } from "../types/marketTable";
 
-export default function MarketTable() {
-  const prices = useBinancePrice();
+interface MarketTableProps {
+  prices: Record<string, MarketPrice>;
+}
+
+export default function MarketTable({ prices }: MarketTableProps) {
   const { favorites, toggleFavorite } = useFavorites();
   const { hidden, toggleHidden } = useHidden();
 
