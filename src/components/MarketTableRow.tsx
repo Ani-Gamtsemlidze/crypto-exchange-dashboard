@@ -44,11 +44,13 @@ export default function MarketTableRow({
       ) : (
         <>
           <td className="px-5 py-3 text-right font-mono text-white">
-            {formatPrice(priceData.price)}
+            <div className="flex items-center justify-end gap-2">
+              {formatPrice(priceData.price)}
+              <PriceDirectionIcon direction={priceData.direction} />
+            </div>
           </td>
           <td className="px-5 py-3 text-right">
             <div className="flex items-center justify-end gap-2">
-              <PriceDirectionIcon direction={priceData.direction} />
               <PriceChange percentageChange={priceData.percentageChange} />
             </div>
           </td>

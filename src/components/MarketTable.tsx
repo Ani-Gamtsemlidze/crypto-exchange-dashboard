@@ -70,7 +70,7 @@ export default function MarketTable({ prices }: MarketTableProps) {
           <tr className="border-b border-white/10 text-sm">
             <th className="px-5 py-3 font-medium text-gray-400">Asset</th>
             <th className="px-5 py-3 text-right font-medium text-gray-400">Price</th>
-            <th className="px-5 py-3 text-right font-medium text-gray-400">Change</th>
+            <th className="px-5 py-3 text-right font-medium text-gray-400">24h Change</th>
             <th className="px-5 py-3 text-right font-medium text-gray-400">Actions</th>
           </tr>
         </thead>

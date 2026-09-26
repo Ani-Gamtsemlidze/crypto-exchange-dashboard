@@ -6,6 +6,11 @@
   --font-display: "Space Grotesk", sans-serif;
   --color-muted: var(--color-slate-400);
   --color-accent: #536af6;
+
+  --color-status-connected: #22c55e;
+  --color-status-reconnecting: #eab308;
+  --color-status-disconnected: #ef4444;
+  --color-status-loading: var(--color-slate-400);
 }
 
 body {
