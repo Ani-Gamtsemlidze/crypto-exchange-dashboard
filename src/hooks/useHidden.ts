@@ -1,7 +1,7 @@
-import { useLocalstorage } from "./useLocalstorage";
+import { useLocalStorage } from "./useLocalStorage";
 
 export function useHidden() {
-  const [hidden, setHidden] = useLocalstorage<Record<string, boolean>>("hidden", {});
+  const [hidden, setHidden] = useLocalStorage<Record<string, boolean>>("hidden", {});
 
   function toggleHidden(symbol: string) {
     setHidden((prev) => ({ ...prev, [symbol]: !prev[symbol] }));

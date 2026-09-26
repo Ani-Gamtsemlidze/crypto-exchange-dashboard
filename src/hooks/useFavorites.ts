@@ -1,7 +1,7 @@
-import { useLocalstorage } from "./useLocalstorage";
+import { useLocalStorage } from "./useLocalStorage";
 
 export function useFavorites() {
-  const [favorites, setFavorites] = useLocalstorage<Record<string, boolean>>("favorites", {});
+  const [favorites, setFavorites] = useLocalStorage<Record<string, boolean>>("favorites", {});
 
   function toggleFavorite(symbol: string) {
     setFavorites((prev) => ({ ...prev, [symbol]: !prev[symbol] }));
