@@ -9,6 +9,7 @@ const STREAM_URL = `wss://stream.binance.com:9443/stream?streams=${CRYPTO_PAIRS.
 export function useBinancePrice() {
   const [prices, setPrices] = useState<Record<string, MarketPrice>>({});
   const [socketStatus, setSocketStatus] = useState<SocketStatus>("loading");
+  const [initialPrices, setInitialPrices] = useState<Record<string, number>>({});
 
   const wsRef = useRef<WebSocket | null>(null);
   const attemptRef = useRef(0);
@@ -50,7 +51,13 @@ export function useBinancePrice() {
 
       socket.onmessage = (event) => {
         const parsed: BinanceTickerResponse = JSON.parse(event.data);
+        const newPrice = Number(parsed.data.c);
+        const symbol = parsed.data.s;
+
         if (wsRef.current !== socket) return;
+        setInitialPrices((previous) =>
+          previous[symbol] === undefined ? { ...previous, [symbol]: newPrice } : previous,
+        );
         setPrices((prev) => {
           const oldPrice = prev[parsed.data.s]?.price;
           const newPrice = Number(parsed.data.c);
@@ -103,5 +110,5 @@ export function useBinancePrice() {
     };
   }, []);
 
-  return { prices, socketStatus };
+  return { prices, socketStatus, initialPrices };
 }
