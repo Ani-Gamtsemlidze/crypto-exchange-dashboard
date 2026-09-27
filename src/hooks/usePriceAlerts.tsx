@@ -47,6 +47,8 @@ export function usePriceAlerts({ prices, initialPrices }: UsePriceAlertsParams) 
           ),
           description: `${formatAlertPrice(initialPrice)} → ${formatAlertPrice(currentPrice)} USDT`,
         });
+      } else if (absChange < 2) {
+        alertedSymbols.current.delete(symbol);
       }
     });
   }, [prices, initialPrices]);
