@@ -1,53 +1,65 @@
-import * as Select from "@radix-ui/react-select";
-import { Check, ChevronDown } from "lucide-react";
-import type { CurrencyDropdownProps } from "../../types/calculator";
+import * as Popover from "@radix-ui/react-popover";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 import { CRYPTO_PAIRS } from "../../constants/cryptoPairs";
+import type { CurrencyDropdownProps } from "../../types/calculator";
 
 export default function CurrencyDropdown({ value, onChange }: CurrencyDropdownProps) {
-  return (
-    <div className="flex items-center rounded-md border border-white/10 bg-slate-800 px-3 py-2 text-sm text-white">
-      <div className="flex">
-        <Select.Root value={value} onValueChange={onChange}>
-          <Select.Trigger className="flex shrink-0 items-center gap-1" aria-label="Select currency">
-            <Select.Value placeholder="BTCUSDT" />
-            <Select.Icon>
-              <ChevronDown className="size-4" />
-            </Select.Icon>
-          </Select.Trigger>
-          <Select.Portal>
-            <Select.Content
-              position="popper"
-              sideOffset={6}
-              className="z-50 rounded-md border border-white/10 bg-slate-800 p-1 text-sm text-white shadow-lg"
-            >
-              <Select.Viewport>
-                {CRYPTO_PAIRS.map((crypto) => (
-                  <Select.Item
-                    key={crypto.symbol}
-                    value={crypto.symbol}
-                    className="relative cursor-pointer rounded px-3 py-2 pr-8 outline-none"
-                  >
-                    <Select.ItemText>
-                      <div className="flex items-center">
-                        <img
-                          src={`https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons/svg/color/${crypto.icon}.svg`}
-                          alt={crypto.symbol}
-                          className="h-5 w-5 object-contain sm:h-8 sm:w-8"
-                        />
+  const [open, setOpen] = useState(false);
+  const selected = CRYPTO_PAIRS.find((crypto) => crypto.symbol === value);
 
-                        <p className="font-base ml-3 sm:text-lg">{crypto.icon.toUpperCase()}</p>
-                      </div>
-                    </Select.ItemText>
-                    <Select.ItemIndicator className="absolute top-1/2 right-2 -translate-y-1/2">
-                      <Check className="size-4" />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.Viewport>
-            </Select.Content>
-          </Select.Portal>
-        </Select.Root>
-      </div>
-    </div>
+  return (
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger
+        aria-label="Select currency"
+        className="flex items-center gap-2 rounded-md border border-white/10 bg-slate-800 px-3 py-2 text-sm text-white"
+      >
+        {selected && (
+          <img
+            src={`https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons/svg/color/${selected.icon}.svg`}
+            alt=""
+            className="h-5 w-5 object-contain"
+          />
+        )}
+        {selected?.icon.toUpperCase() ?? value}
+        {open ? (
+          <ChevronUp className="size-4 shrink-0" aria-hidden="true" />
+        ) : (
+          <ChevronDown className="size-4 shrink-0" />
+        )}
+      </Popover.Trigger>
+
+      <Popover.Portal>
+        <Popover.Content
+          align="end"
+          sideOffset={6}
+          className="z-[100] min-w-[180px] rounded-md border border-white/10 bg-slate-800 p-1 text-sm text-white shadow-lg"
+        >
+          {CRYPTO_PAIRS.map((crypto) => (
+            <button
+              key={crypto.symbol}
+              type="button"
+              onClick={() => {
+                onChange(crypto.symbol);
+                setOpen(false);
+              }}
+              className={`flex w-full items-center gap-3 rounded px-3 py-2 text-left focus-visible:outline-2 focus-visible:outline-accent md:hover:bg-white/10 ${
+                value === crypto.symbol ? "bg-white/10" : ""
+              }`}
+            >
+              <div>
+                <img
+                  src={`https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons/svg/color/${crypto.icon}.svg`}
+                  alt=""
+                  className="h-5 w-5 object-contain sm:h-8 sm:w-8"
+                />
+              </div>
+              <span className="flex-1">{crypto.icon.toUpperCase()}</span>
+              {value === crypto.symbol && <Check className="size-4" aria-hidden="true" />}
+            </button>
+          ))}
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   );
 }

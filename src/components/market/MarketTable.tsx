@@ -4,7 +4,7 @@ import HiddenList from "./HiddenList";
 import { useHidden } from "../../hooks/useHidden";
 import MarketTableRow from "./MarketTableRow";
 import { useState } from "react";
-import MarketSort from "./MarketSort";
+import MarketSort, { type SortBy } from "./MarketSort";
 import MarketSearch from "./MarketSearch";
 import MarketFilterTabs from "./MarketFilterTabs";
 import type { MarketPrice } from "../../types/marketTable";
@@ -22,7 +22,7 @@ export default function MarketTable({ prices, socketStatus }: MarketTableProps) 
   const { hidden, toggleHidden } = useHidden();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortValue, setSortValue] = useState("default");
+  const [sortValue, setSortValue] = useState<SortBy>("default");
   const [tabFilter, setTabFilter] = useState("all");
 
   const hiddenPairs = CRYPTO_PAIRS.filter((pair) => hidden[pair.symbol]);

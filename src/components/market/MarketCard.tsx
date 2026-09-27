@@ -49,7 +49,11 @@ export default function MarketCard({
               {formatPrice(priceData.price)}
               <PriceDirectionIcon direction={priceData.direction} />
             </div>
-            <PriceChange percentageChange={priceData.percentageChange} />
+            <div className="flex flex-col items-end gap-2">
+              <span className="text-sm text-muted">24h</span>
+
+              <PriceChange percentageChange={priceData.percentageChange} />
+            </div>
           </>
         )}
       </div>
