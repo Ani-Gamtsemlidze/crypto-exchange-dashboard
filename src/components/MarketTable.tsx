@@ -8,12 +8,14 @@ import MarketSort from "./MarketSort";
 import MarketSearch from "./MarketSearch";
 import MarketFilterTabs from "./MarketFilterTabs";
 import type { MarketPrice } from "../types/marketTable";
+import type { SocketStatus } from "../hooks/useBinancePrice";
 
 interface MarketTableProps {
   prices: Record<string, MarketPrice>;
+  socketStatus: SocketStatus;
 }
 
-export default function MarketTable({ prices }: MarketTableProps) {
+export default function MarketTable({ prices, socketStatus }: MarketTableProps) {
   const { favorites, toggleFavorite } = useFavorites();
   const { hidden, toggleHidden } = useHidden();
 
@@ -53,63 +55,69 @@ export default function MarketTable({ prices }: MarketTableProps) {
 
   const filteredByTab = sortData.filter((pair) => tabFilter === "all" || favorites[pair.symbol]);
   return (
-    <div className="flex flex-col rounded-xl border border-white/10 bg-slate-600/15 backdrop-blur-xl">
-      <div className="mx-auto mt-4 flex flex-col items-start">
-        <h2 className="text-lg text-white">Live Market</h2>
-        <div className="my-4">
-          <div className="flex">
-            <MarketSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            <MarketFilterTabs value={tabFilter} onChange={setTabFilter} />
-            <MarketSort value={sortValue} onChange={setSortValue} />
+    <>
+      <div className="flex flex-col rounded-xl border border-white/10 bg-slate-600/15 backdrop-blur-xl">
+        <div className="mx-auto mt-4 flex flex-col items-start">
+          {/* <h2 className="text-lg text-white">Live Market</h2> */}
+          <div className="my-4">
+            <div className="flex">
+              <MarketSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+              <MarketFilterTabs value={tabFilter} onChange={setTabFilter} />
+              <MarketSort value={sortValue} onChange={setSortValue} />
+            </div>
           </div>
         </div>
-      </div>
-
-      <table className="w-full text-left">
-        <thead>
-          <tr className="border-b border-white/10 text-sm">
-            <th className="px-5 py-3 font-medium text-gray-400">Asset</th>
-            <th className="px-5 py-3 text-right font-medium text-gray-400">Price</th>
-            <th className="px-5 py-3 text-right font-medium text-gray-400">24h Change</th>
-            <th className="px-5 py-3 text-right font-medium text-gray-400">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredByTab.length !== 0 ? (
-            filteredByTab.map((pair) => {
-              const priceData = prices[pair.symbol];
-              return (
-                <MarketTableRow
-                  key={pair.symbol}
-                  pair={pair}
-                  priceData={priceData}
-                  onToggleFavorite={toggleFavorite}
-                  onToggleHidden={toggleHidden}
-                  isHidden={false}
-                  isFavorite={favorites[pair.symbol]}
-                />
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan={4} className="py-6 text-center text-gray-400">
-                {searchQuery
-                  ? "No currencies match your search."
-                  : tabFilter === "favorites"
-                    ? "No favorites yet."
-                    : "No currencies to display."}
-              </td>
+        {socketStatus !== "connected" && Object.keys(prices).length > 0 && (
+          <p className="px-5 py-2 text-center text-sm text-muted">
+            Prices may be outdated while the connection is unavailable.
+          </p>
+        )}
+        <table className="w-full text-left">
+          <thead>
+            <tr className="border-b border-white/10 text-sm">
+              <th className="px-5 py-3 font-medium text-gray-400">Asset</th>
+              <th className="px-5 py-3 text-right font-medium text-gray-400">Price</th>
+              <th className="px-5 py-3 text-right font-medium text-gray-400">24h Change</th>
+              <th className="px-5 py-3 text-right font-medium text-gray-400">Actions</th>
             </tr>
-          )}
-          <HiddenList
-            hiddenPairs={hiddenPairs}
-            prices={prices}
-            favorites={favorites}
-            toggleFavorite={toggleFavorite}
-            toggleHidden={toggleHidden}
-          />
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {filteredByTab.length !== 0 ? (
+              filteredByTab.map((pair) => {
+                const priceData = prices[pair.symbol];
+                return (
+                  <MarketTableRow
+                    key={pair.symbol}
+                    pair={pair}
+                    priceData={priceData}
+                    onToggleFavorite={toggleFavorite}
+                    onToggleHidden={toggleHidden}
+                    isHidden={false}
+                    isFavorite={favorites[pair.symbol]}
+                  />
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={4} className="py-6 text-center text-gray-400">
+                  {searchQuery
+                    ? "No currencies match your search."
+                    : tabFilter === "favorites"
+                      ? "No favorites yet."
+                      : "No currencies to display."}
+                </td>
+              </tr>
+            )}
+            <HiddenList
+              hiddenPairs={hiddenPairs}
+              prices={prices}
+              favorites={favorites}
+              toggleFavorite={toggleFavorite}
+              toggleHidden={toggleHidden}
+            />
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }

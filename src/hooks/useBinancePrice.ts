@@ -10,6 +10,7 @@ export function useBinancePrice() {
   const [prices, setPrices] = useState<Record<string, MarketPrice>>({});
   const [socketStatus, setSocketStatus] = useState<SocketStatus>("loading");
   const [initialPrices, setInitialPrices] = useState<Record<string, number>>({});
+  const [error, setError] = useState<string | null>(null);
 
   const wsRef = useRef<WebSocket | null>(null);
   const attemptRef = useRef(0);
@@ -23,8 +24,10 @@ export function useBinancePrice() {
       clearReconnectTimer();
       socket?.close();
       setSocketStatus("disconnected");
+      setError("You appear to be offline.");
     };
     const handleOnline = () => {
+      clearReconnectTimer();
       if (!wsRef.current) {
         attemptRef.current = 0;
         setSocketStatus("reconnecting");
@@ -47,50 +50,65 @@ export function useBinancePrice() {
         if (wsRef.current !== socket) return;
         setSocketStatus("connected");
         attemptRef.current = 0;
+        setError(null);
       };
 
       socket.onmessage = (event) => {
-        const parsed: BinanceTickerResponse = JSON.parse(event.data);
-        const newPrice = Number(parsed.data.c);
-        const symbol = parsed.data.s;
+        try {
+          const parsed: BinanceTickerResponse = JSON.parse(event.data);
+          setError(null);
 
-        if (wsRef.current !== socket) return;
-        setInitialPrices((previous) =>
-          previous[symbol] === undefined ? { ...previous, [symbol]: newPrice } : previous,
-        );
-        setPrices((prev) => {
-          const oldPrice = prev[parsed.data.s]?.price;
           const newPrice = Number(parsed.data.c);
-          const percentageChange = Number(parsed.data.P);
+          const symbol = parsed.data.s;
 
-          let direction: PriceDirection = prev[parsed.data.s]?.direction ?? "unchanged";
+          if (wsRef.current !== socket) return;
+          setInitialPrices((previous) =>
+            previous[symbol] === undefined ? { ...previous, [symbol]: newPrice } : previous,
+          );
+          setPrices((prev) => {
+            const oldPrice = prev[parsed.data.s]?.price;
+            const newPrice = Number(parsed.data.c);
+            const percentageChange = Number(parsed.data.P);
 
-          if (oldPrice !== undefined) {
-            if (newPrice > oldPrice) {
-              direction = "up";
-            } else if (newPrice < oldPrice) {
-              direction = "down";
+            let direction: PriceDirection = prev[parsed.data.s]?.direction ?? "unchanged";
+
+            if (oldPrice !== undefined) {
+              if (newPrice > oldPrice) {
+                direction = "up";
+              } else if (newPrice < oldPrice) {
+                direction = "down";
+              }
             }
-          }
 
-          return {
-            ...prev,
-            [parsed.data.s]: { price: newPrice, direction, percentageChange },
-          };
-        });
+            return {
+              ...prev,
+              [parsed.data.s]: { price: newPrice, direction, percentageChange },
+            };
+          });
+        } catch (err) {
+          setError("Received malformed data from server.");
+          console.error("Failed to parse WebSocket message:", err);
+        }
       };
       socket.onclose = () => {
         if (wsRef.current !== socket) return;
+        wsRef.current = null;
         attemptRef.current++;
         if (attemptRef.current > MAX_ATTEMPT) {
           setSocketStatus("disconnected");
+          setError("Unable to connect to live prices.");
           return;
         }
         setSocketStatus("reconnecting");
+        timeOutRef.current = setTimeout(() => {
+          timeOutRef.current = null;
+          connect();
+        }, 5000);
         timeOutRef.current = setTimeout(() => connect(), 5000);
       };
       socket.onerror = (event) => {
         if (wsRef.current !== socket) return;
+        setError("A connection error occurred.");
         console.error("Binance WebSocket error:", event);
       };
     }
@@ -110,5 +128,5 @@ export function useBinancePrice() {
     };
   }, []);
 
-  return { prices, socketStatus, initialPrices };
+  return { prices, socketStatus, initialPrices, error };
 }

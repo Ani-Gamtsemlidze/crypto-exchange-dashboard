@@ -38,9 +38,14 @@ export default function MarketTableRow({
       </td>
 
       {priceData === undefined ? (
-        <td colSpan={2} className="text-text-dim px-5 py-3 text-right">
-          Loading...
-        </td>
+        <>
+          <td className="px-5 py-3">
+            <div className="ml-auto h-4 w-24 animate-pulse rounded bg-white/10" />
+          </td>
+          <td className="px-5 py-3">
+            <div className="ml-auto h-4 w-14 animate-pulse rounded bg-white/10" />
+          </td>
+        </>
       ) : (
         <>
           <td className="px-5 py-3 text-right font-mono text-white">

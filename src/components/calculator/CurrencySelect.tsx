@@ -11,8 +11,10 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
   const sourcePrice = prices[source]?.price;
   const targetPrice = prices[target]?.price;
 
-  const rate = sourcePrice && targetPrice > 0 ? sourcePrice / targetPrice : null;
-
+  const rate =
+    sourcePrice !== undefined && targetPrice !== undefined && targetPrice > 0
+      ? sourcePrice / targetPrice
+      : null;
   const convertedAmount =
     rate !== null && amount !== "" && Number.isFinite(Number(amount)) && Number(amount) >= 0
       ? (Number(amount) * rate).toFixed(6)
@@ -50,9 +52,15 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
         onCurrencyChange={setTarget}
       />
       <div className="mt-4 flex items-center text-muted">
-        1 {source.replace("USDT", "")}{" "}
-        <EqualApproximately className="mx-2 text-muted" size={16} strokeWidth={3} />{" "}
-        {rate?.toFixed(4)} {target.replace("USDT", "")}
+        {rate !== null ? (
+          <>
+            1 {source.replace("USDT", "")}{" "}
+            <EqualApproximately className="mx-2 text-muted" size={16} strokeWidth={3} />{" "}
+            {rate.toFixed(4)} {target.replace("USDT", "")}
+          </>
+        ) : (
+          <div className="h-4 w-32 animate-pulse rounded bg-white/10" />
+        )}{" "}
       </div>
     </div>
   );
