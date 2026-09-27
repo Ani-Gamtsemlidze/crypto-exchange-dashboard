@@ -7,6 +7,7 @@ export default function CurrencyInputRow({
   onValueChange,
   currency,
   onCurrencyChange,
+  excludeSymbol,
 }: CurrencyInputRowProps) {
   const validAmountRegex = /^\d*\.?\d{0,8}$/;
 
@@ -42,7 +43,11 @@ export default function CurrencyInputRow({
 
       <div className="h-6 w-px bg-white/10" />
 
-      <CurrencyDropdown value={currency} onChange={onCurrencyChange} />
+      <CurrencyDropdown
+        value={currency}
+        onChange={onCurrencyChange}
+        excludeSymbol={excludeSymbol}
+      />
     </div>
   );
 }

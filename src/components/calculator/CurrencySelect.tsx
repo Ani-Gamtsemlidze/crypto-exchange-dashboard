@@ -33,6 +33,7 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
         editable={true}
         currency={source}
         onCurrencyChange={setSource}
+        excludeSymbol={target}
       />
 
       <button
@@ -50,6 +51,7 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
         editable={false}
         currency={target}
         onCurrencyChange={setTarget}
+        excludeSymbol={source}
       />
       {amount !== "" && rate !== null && (
         <div className="flex flex-col">

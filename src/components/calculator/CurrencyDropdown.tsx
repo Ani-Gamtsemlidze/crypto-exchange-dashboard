@@ -4,7 +4,11 @@ import { useState } from "react";
 import { CRYPTO_PAIRS } from "../../constants/cryptoPairs";
 import type { CurrencyDropdownProps } from "../../types/calculator";
 
-export default function CurrencyDropdown({ value, onChange }: CurrencyDropdownProps) {
+export default function CurrencyDropdown({
+  value,
+  onChange,
+  excludeSymbol,
+}: CurrencyDropdownProps) {
   const [open, setOpen] = useState(false);
   const selected = CRYPTO_PAIRS.find((crypto) => crypto.symbol === value);
 
@@ -35,7 +39,7 @@ export default function CurrencyDropdown({ value, onChange }: CurrencyDropdownPr
           sideOffset={6}
           className="z-[100] min-w-[180px] rounded-md border border-white/10 bg-slate-800 p-1 text-sm text-white shadow-lg"
         >
-          {CRYPTO_PAIRS.map((crypto) => (
+          {CRYPTO_PAIRS.filter((crypto) => crypto.symbol !== excludeSymbol).map((crypto) => (
             <button
               key={crypto.symbol}
               type="button"
