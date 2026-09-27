@@ -25,14 +25,17 @@ export default function Header({ socketStatus }: HeaderProps) {
   const { color, fill, label } = statusConfig[socketStatus];
 
   return (
-    <header className="mx-auto mb-4 flex max-w-6xl items-center justify-between">
-      <div className="flex items-center">
-        <img src={logo} alt="" className="mr-3 h-10 w-10 object-contain" />
-        <h1 className="font-bold text-white capitalize">Crypto exchange dashboard</h1>
+    <header className="mb-4 flex items-center justify-between gap-2">
+      <div className="flex min-w-0 items-center gap-2">
+        <img src={logo} alt="" className="size-6 shrink-0 object-contain sm:size-10" />
+        <h1 className="text-xs leading-tight font-bold text-white sm:text-lg">
+          Crypto Exchange Dashboard
+        </h1>
       </div>
-      <div className="flex items-center">
-        <Circle className={`mr-2 size-2 ${fill} ${color}`} />
-        <span className={`text-sm ${color} capitalize`}>{label}</span>
+
+      <div className="flex shrink-0 items-center gap-1">
+        <Circle className={`size-2 shrink-0 ${fill} ${color}`} aria-hidden="true" />
+        <span className={`text-xs whitespace-nowrap sm:text-sm ${color}`}>{label}</span>
       </div>
     </header>
   );

@@ -35,7 +35,7 @@ function App() {
           )}
           <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
             <MarketTable prices={prices} socketStatus={socketStatus} />
-            <div>
+            <div className="w-full min-w-0">
               <CalculatorBody prices={prices} />
             </div>
           </div>

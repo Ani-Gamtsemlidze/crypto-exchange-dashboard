@@ -32,10 +32,10 @@ export default function CurrencyDropdown({ value, onChange }: CurrencyDropdownPr
                         <img
                           src={`https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons/svg/color/${crypto.icon}.svg`}
                           alt={crypto.symbol}
-                          className="h-8 w-8 object-contain"
+                          className="h-5 w-5 object-contain sm:h-8 sm:w-8"
                         />
 
-                        <p className="ml-3">{crypto.icon.toUpperCase()}</p>
+                        <p className="font-base ml-3 sm:text-lg">{crypto.icon.toUpperCase()}</p>
                       </div>
                     </Select.ItemText>
                     <Select.ItemIndicator className="absolute top-1/2 right-2 -translate-y-1/2">
