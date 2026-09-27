@@ -1,9 +1,9 @@
 import { Toaster } from "sonner";
 import CalculatorBody from "./components/calculator/CalculatorBody";
 import Header from "./components/Header";
-import MarketTable from "./components/MarketTable";
 import { useBinancePrice } from "./hooks/useBinancePrice";
 import { usePriceAlerts } from "./hooks/usePriceAlerts";
+import MarketTable from "./components/market/MarketTable";
 
 function App() {
   const { prices, socketStatus, initialPrices, error } = useBinancePrice();

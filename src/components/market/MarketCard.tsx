@@ -1,5 +1,5 @@
-import type { MarketCardProps } from "../types/marketTable";
-import { formatPrice } from "../utils/formatPrice";
+import type { MarketCardProps } from "../../types/marketTable";
+import { formatPrice } from "../../utils/formatPrice";
 import FavoriteButton from "./FavoriteButton";
 import HideButton from "./HideButton";
 import PriceChange from "./PriceChange";

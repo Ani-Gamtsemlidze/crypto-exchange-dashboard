@@ -1,16 +1,16 @@
-import { CRYPTO_PAIRS } from "../constants/cryptoPairs";
-import { useFavorites } from "../hooks/useFavorites";
+import { CRYPTO_PAIRS } from "../../constants/cryptoPairs";
+import { useFavorites } from "../../hooks/useFavorites";
 import HiddenList from "./HiddenList";
-import { useHidden } from "../hooks/useHidden";
+import { useHidden } from "../../hooks/useHidden";
 import MarketTableRow from "./MarketTableRow";
 import { useState } from "react";
 import MarketSort from "./MarketSort";
 import MarketSearch from "./MarketSearch";
 import MarketFilterTabs from "./MarketFilterTabs";
-import type { MarketPrice } from "../types/marketTable";
-import type { SocketStatus } from "../hooks/useBinancePrice";
+import type { MarketPrice } from "../../types/marketTable";
+import type { SocketStatus } from "../../hooks/useBinancePrice";
 import MarketCard from "./MarketCard";
-import HiddenCardList from "./HiddenCardList";
+import HiddenCardList from "././HiddenCardList";
 
 interface MarketTableProps {
   prices: Record<string, MarketPrice>;

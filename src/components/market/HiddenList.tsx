@@ -2,8 +2,8 @@ import { ChevronDown, EyeOff } from "lucide-react";
 
 import { useState } from "react";
 import MarketTableRow from "./MarketTableRow";
-import type { MarketPrice } from "../types/marketTable";
-import type { CryptoPair } from "../constants/cryptoPairs";
+import type { MarketPrice } from "../../types/marketTable";
+import type { CryptoPair } from "../../constants/cryptoPairs";
 
 interface HiddenListProps {
   hiddenPairs: CryptoPair[];

@@ -1,5 +1,5 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
-import type { PriceDirection } from "../types/marketTable";
+import type { PriceDirection } from "../../types/marketTable";
 
 export default function PriceDirectionIcon({ direction }: { direction: PriceDirection }) {
   if (direction === "up") {
