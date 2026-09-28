@@ -110,7 +110,6 @@ export function useBinancePrice() {
           timeOutRef.current = null;
           connect();
         }, 5000);
-        timeOutRef.current = setTimeout(() => connect(), 5000);
       };
       socket.onerror = (event) => {
         if (wsRef.current !== socket) return;
