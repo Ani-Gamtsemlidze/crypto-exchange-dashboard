@@ -17,6 +17,7 @@ export interface MarketPrice {
   price: number;
   direction: PriceDirection;
   percentageChange: number;
+  updatedAt: number;
 }
 
 export interface MarketCardProps {

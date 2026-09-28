@@ -4,10 +4,19 @@ import Header from "./components/Header";
 import { useBinancePrice } from "./hooks/useBinancePrice";
 import { usePriceAlerts } from "./hooks/usePriceAlerts";
 import MarketTable from "./components/market/MarketTable";
+import { useState } from "react";
+import { lazy, Suspense } from "react";
+import { usePriceHistory } from "./hooks/usePriceHistory";
+
+const PriceHistoryChart = lazy(() => import("./components/LineChart"));
 
 function App() {
   const { prices, socketStatus, initialPrices, error } = useBinancePrice();
   usePriceAlerts({ prices, initialPrices });
+
+  const [selectedSymbol, setSelectedSymbol] = useState("BTCUSDT");
+
+  const priceHistory = usePriceHistory(prices);
 
   return (
     <>
@@ -37,6 +46,19 @@ function App() {
             <MarketTable prices={prices} socketStatus={socketStatus} />
             <div className="w-full min-w-0">
               <CalculatorBody prices={prices} />
+              <Suspense
+                fallback={
+                  <div className="mt-8 flex h-[280px] items-center justify-center rounded-xl border border-border bg-surface p-4 text-sm text-muted sm:p-6">
+                    Loading chart...
+                  </div>
+                }
+              >
+                <PriceHistoryChart
+                  symbol={selectedSymbol}
+                  onSymbolChange={setSelectedSymbol}
+                  priceHistory={priceHistory[selectedSymbol] ?? []}
+                />
+              </Suspense>
             </div>
           </div>
         </div>

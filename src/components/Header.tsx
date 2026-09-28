@@ -44,7 +44,7 @@ export default function Header({ socketStatus }: HeaderProps) {
           type="button"
           onClick={toggleTheme}
           aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          className="rounded-md bg-slate-600/10 p-2 hover:bg-slate-600/25 cursor-pointer"
+          className="cursor-pointer rounded-md bg-slate-600/10 p-2 hover:bg-slate-600/25"
         >
           {theme === "dark" ? (
             <Sun className="size-5 text-yellow-300" />

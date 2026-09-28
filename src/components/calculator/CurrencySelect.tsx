@@ -33,7 +33,7 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
       <button
         type="button"
         onClick={handleSwitch}
-        className="absolute top-10 cursor-pointer left-1/2 z-50 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-xl border border-border bg-surface-2 backdrop-blur-xl"
+        className="absolute top-10 left-1/2 z-50 flex h-11 w-11 -translate-x-1/2 cursor-pointer items-center justify-center rounded-xl border border-border bg-surface-2 backdrop-blur-xl"
       >
         <ArrowDownUp
           className="size-6 rounded-full text-accent hover:text-[#7486fa]"

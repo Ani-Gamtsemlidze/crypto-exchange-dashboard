@@ -79,10 +79,16 @@ export function useBinancePrice() {
                 direction = "down";
               }
             }
+            const receivedAt = Date.now();
 
             return {
               ...prev,
-              [parsed.data.s]: { price: newPrice, direction, percentageChange },
+              [parsed.data.s]: {
+                price: newPrice,
+                direction,
+                percentageChange,
+                updatedAt: receivedAt,
+              },
             };
           });
         } catch (err) {
