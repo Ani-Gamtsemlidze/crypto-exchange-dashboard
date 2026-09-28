@@ -7,9 +7,10 @@ A responsive dashboard for viewing live cryptocurrency prices and converting bet
 Live demo: [Open the site](https://crypto-exchange-dashboard-three.vercel.app/)
 
 ## preview
+
 ![Crypto Exchange Dashboard](./docs/dashboard.png)
 
-## 
+##
 
 ![Technologies used](https://skillicons.dev/icons?i=react,ts,vite,tailwind&theme=light)
 
@@ -81,4 +82,4 @@ No API key is needed: it uses Binance's public WebSocket stream.
 - The market's 24-hour change comes from Binance ticker data. The 2% alert compares the current price with the first price received after the page opens. It does not repeat while the change remains beyond 2%; it can appear again after the change drops below 2% and later crosses the threshold again.
 - The header shows the WebSocket connection status. After an unexpected close, the app retries every 5 seconds for up to 5 reconnection attempts. When the browser comes back online, it attempts to connect again.
 - Favorites, hidden currencies, and the theme preference are stored in localStorage. Chart history stays in memory and resets on refresh.
-- The dashboard has one page, so it does not use client-side routing. 
+- The dashboard has one page, so it does not use client-side routing.
