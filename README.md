@@ -1,73 +1,84 @@
-# React + TypeScript + Vite
+<img src="./src/assets/logo.png" alt="Crypto Exchange Dashboard logo" width="48" />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Crypto Exchange Dashboard
 
-Currently, two official plugins are available:
+A responsive dashboard for viewing live cryptocurrency prices and converting between currencies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Live demo: [Open the site](https://crypto-exchange-dashboard-three.vercel.app/)
 
-## React Compiler
+## preview
+![Crypto Exchange Dashboard](./docs/dashboard.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 
 
-## Expanding the ESLint configuration
+![Technologies used](https://skillicons.dev/icons?i=react,ts,vite,tailwind&theme=light)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Installation
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+Requirements: Node.js and npm.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+git clone https://github.com/Ani-Gamtsemlidze/crypto-exchange-dashboard.git
+cd crypto-exchange-dashboard
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Running the project
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm run dev
 ```
+
+Other commands:
+
+```bash
+npm run build       # TypeScript check and production build
+npm run lint        # ESLint
+npm run format      # Format project files with Prettier
+npx vitest run      # Unit tests
+```
+
+Open the URL shown in the terminal: `http://localhost:5173` (default Vite port).
+
+No API key is needed: it uses Binance's public WebSocket stream.
+
+## Libraries used
+
+- **React** + **TypeScript**: UI and type safety
+- **Vite**: build tool and dev server
+- **Tailwind CSS**: styling
+- **Recharts**: price history chart
+- **Sonner**: toast notifications for price alerts
+- **Radix UI**: accessible dropdowns and popovers
+- **vitest**: unit tests for calculator and percentage-change logic
+- **lucide-react**: icons
+
+## Project architecture
+
+- `components/` contains the header, market UI, calculator, chart, and shared interface elements.
+- `hooks/` manages live Binance prices, alerts, session price history, and browser storage.
+- `constants/` defines the supported cryptocurrency pairs.
+- `types/` contains shared TypeScript types.
+- `utils/` contains calculation and formatting functions, including the logic covered by unit tests.
+
+`App` receives live market prices from `useBinancePrice` and passes them to the market, calculator, and chart UI.
+
+## Features
+
+- Live market prices, 24-hour percentage changes, and price direction
+- Search by currency name or symbol; sort by name, price, or price change
+- Favorites and a separate list for hidden currencies
+- Currency calculator with input validation and a currency swap button
+- A 2% price-change alert based on the first price received during the session
+- A selectable price history chart using data collected during the current session
+- Connection, loading, error, and empty-result states
+- Responsive layout and light/dark theme
+
+## Technical decisions and assumptions
+
+- Prices come from Binance's public WebSocket API. The app has no backend or database.
+- Currency conversion uses the latest available USDT prices. Swapping exchanges the selected currencies while keeping the entered amount in the first input; the converted amount is read-only and is also shown as an estimated result.
+- The market's 24-hour change comes from Binance ticker data. The 2% alert compares the current price with the first price received after the page opens. It does not repeat while the change remains beyond 2%; it can appear again after the change drops below 2% and later crosses the threshold again.
+- The header shows the WebSocket connection status. After an unexpected close, the app retries every 5 seconds for up to 5 reconnection attempts. When the browser comes back online, it attempts to connect again.
+- Favorites, hidden currencies, and the theme preference are stored in localStorage. Chart history stays in memory and resets on refresh.
+- The dashboard has one page, so it does not use client-side routing. 
