@@ -16,7 +16,7 @@ export default function CurrencyDropdown({
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger
         aria-label="Select currency"
-        className="flex items-center gap-2 rounded-md border border-white/10 bg-slate-800 px-3 py-2 text-sm text-white"
+        className="flex items-center gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-sm text-text-primary"
       >
         {selected && (
           <img
@@ -37,7 +37,7 @@ export default function CurrencyDropdown({
         <Popover.Content
           align="end"
           sideOffset={6}
-          className="z-[100] min-w-[180px] rounded-md border border-white/10 bg-slate-800 p-1 text-sm text-white shadow-lg"
+          className="z-[100] min-w-[180px] rounded-md border border-border bg-surface p-1 text-sm text-text-primary shadow-lg"
         >
           {CRYPTO_PAIRS.filter((crypto) => crypto.symbol !== excludeSymbol).map((crypto) => (
             <button
@@ -47,8 +47,8 @@ export default function CurrencyDropdown({
                 onChange(crypto.symbol);
                 setOpen(false);
               }}
-              className={`flex w-full items-center gap-3 rounded px-3 py-2 text-left focus-visible:outline-2 focus-visible:outline-accent md:hover:bg-white/10 ${
-                value === crypto.symbol ? "bg-white/10" : ""
+              className={`flex w-full items-center gap-3 rounded px-3 py-2 text-left focus-visible:outline-2 focus-visible:outline-accent md:hover:bg-border ${
+                value === crypto.symbol ? "bg-border dark:bg-white/10" : ""
               }`}
             >
               <div>

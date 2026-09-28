@@ -14,21 +14,21 @@ function App() {
       <Toaster
         toastOptions={{
           style: {
-            background: "#1e293b",
-            color: "#fff",
+            background: "var(--raw-surface)",
+            color: "var(--raw-text-primary)",
             border: "1px solid #5267F5",
           },
-          descriptionClassName: "!text-slate-300",
+          descriptionClassName: "!text-muted",
         }}
         position="bottom-right"
       />
-      <main className="min-h-screen bg-bg py-6 text-white">
+      <main className="min-h-screen bg-bg py-6 text-text-primary">
         <div className="mx-auto max-w-6xl px-4">
           <Header socketStatus={socketStatus} />
           {error && (
             <div
               role="alert"
-              className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200"
+              className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-200"
             >
               {error}
             </div>

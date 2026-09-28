@@ -64,7 +64,8 @@ export default function MarketTable({ prices, socketStatus }: MarketTableProps) 
   const filteredByTab = sortData.filter((pair) => tabFilter === "all" || favorites[pair.symbol]);
 
   return (
-    <div className="flex min-w-0 flex-col rounded-xl border border-white/10 bg-slate-600/15 backdrop-blur-xl">
+    <div className="flex min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-surface backdrop-blur-xl dark:border-white/10 dark:bg-slate-600/15">
+      {" "}
       <div className="w-full p-4">
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
           <MarketSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -75,13 +76,11 @@ export default function MarketTable({ prices, socketStatus }: MarketTableProps) 
           </div>
         </div>
       </div>
-
       {socketStatus !== "connected" && Object.keys(prices).length > 0 && (
         <p className="px-5 py-2 text-center text-sm text-muted">
           Prices may be outdated while the connection is unavailable.
         </p>
       )}
-
       <div className="md:hidden">
         {filteredByTab.length !== 0 ? (
           filteredByTab.map((pair) => (
@@ -111,7 +110,6 @@ export default function MarketTable({ prices, socketStatus }: MarketTableProps) 
           />
         )}
       </div>
-
       <div className="hidden min-w-0 overflow-x-auto md:block">
         <table className="w-full min-w-[620px] text-left">
           <thead>

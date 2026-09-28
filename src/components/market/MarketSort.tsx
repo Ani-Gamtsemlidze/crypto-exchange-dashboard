@@ -28,7 +28,7 @@ export default function MarketSort({ value, onChange }: MarketSortProps) {
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger
         aria-label="Sort currencies"
-        className="flex min-h-9 items-center justify-between gap-2 rounded-md border border-white/10 bg-slate-800 px-3 py-2 text-sm text-white"
+        className="bold flex min-h-9 items-center justify-between gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-sm text-text-primary"
       >
         <div className="flex items-center justify-center">
           <span>{selected?.shortLabel ?? "Sort"}</span>
@@ -44,7 +44,7 @@ export default function MarketSort({ value, onChange }: MarketSortProps) {
         <Popover.Content
           align="end"
           sideOffset={6}
-          className="z-[100] w-max max-w-[calc(100vw-2rem)] rounded-md border border-white/10 bg-slate-800 p-1 text-sm text-white shadow-lg"
+          className="z-[100] w-max max-w-[calc(100vw-2rem)] rounded-md border border-border bg-surface p-1 text-sm text-text-primary shadow-lg"
         >
           {sortOptions.map((option) => (
             <button
@@ -54,8 +54,8 @@ export default function MarketSort({ value, onChange }: MarketSortProps) {
                 onChange(option.value);
                 setOpen(false);
               }}
-              className={`flex w-full items-center gap-4 rounded px-3 py-2 text-left focus-visible:outline-2 focus-visible:outline-accent md:hover:bg-white/10 ${
-                value === option.value ? "bg-white/10" : ""
+              className={`flex w-full items-center gap-4 rounded px-3 py-2 text-left hover:bg-border focus-visible:outline-2 focus-visible:outline-accent dark:hover:bg-white/10 ${
+                value === option.value ? "bg-border dark:bg-white/10" : ""
               }`}
             >
               <span className="flex-1">{option.label}</span>

@@ -39,7 +39,7 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
       <button
         type="button"
         onClick={handleSwitch}
-        className="absolute top-12 left-1/2 z-50 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-xl border border-white/10 bg-slate-800 backdrop-blur-xl"
+        className="absolute top-10 left-1/2 z-50 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-xl border border-border bg-surface-2 backdrop-blur-xl"
       >
         <ArrowDownUp
           className="size-6 rounded-full text-accent hover:text-[#7486fa]"
@@ -56,7 +56,7 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
       {amount !== "" && rate !== null && (
         <div className="flex flex-col">
           <span className="text-sm text-muted">Estimated result</span>
-          <p className="mt-2 text-2xl font-semibold break-all text-white">
+          <p className="mt-2 text-2xl font-semibold break-all text-text-primary">
             {convertedAmount} <span className="text-muted">{target.replace("USDT", "")}</span>
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
             {rate.toFixed(4)} {target.replace("USDT", "")}
           </>
         ) : (
-          <div className="h-4 w-32 animate-pulse rounded bg-white/10" />
+          <div className="h-4 w-32 animate-pulse rounded bg-surface-2" />
         )}{" "}
       </div>
     </div>

@@ -22,13 +22,13 @@ export default function HiddenList({
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <tr className="border-t border-white/10 bg-slate-600/15">
+      <tr className="border-t border-border bg-surface-2">
         <td colSpan={4} className="p-2">
           <button
             type="button"
             onClick={() => setIsOpen((previous) => !previous)}
             aria-expanded={isOpen}
-            className="flex w-full items-center gap-2 rounded-md p-2 text-left text-white hover:bg-white/5"
+            className="flex w-full items-center gap-2 rounded-md p-2 text-left text-text-primary hover:bg-white/5"
           >
             <EyeOff className="size-4 text-muted" />
 

@@ -4,12 +4,12 @@ export interface FilterTabsProps {
 }
 export default function MarketFilterTabs({ value, onChange }: FilterTabsProps) {
   return (
-    <div className="flex w-full items-center rounded-md border border-white/10 bg-slate-800 text-sm text-white sm:w-auto">
+    <div className="flex w-full items-center rounded-md border border-border bg-surface-2 text-sm sm:w-auto">
       <button
         type="button"
         onClick={() => onChange("all")}
-        className={`h-full flex-1 rounded px-4 py-1.5 sm:flex-none sm:px-6 ${
-          value === "all" ? "bg-accent" : "hover:bg-white/5"
+        className={`h-full flex-1 rounded px-4 py-1.5 text-text-primary sm:flex-none sm:px-6 ${
+          value === "all" ? "bg-accent text-white" : "hover:bg-black/5 dark:hover:bg-white/5"
         }`}
       >
         All
@@ -18,8 +18,8 @@ export default function MarketFilterTabs({ value, onChange }: FilterTabsProps) {
       <button
         type="button"
         onClick={() => onChange("favorites")}
-        className={`h-full flex-1 rounded px-4 py-1.5 sm:flex-none sm:px-6 ${
-          value === "favorites" ? "bg-accent" : "hover:bg-white/5"
+        className={`h-full flex-1 rounded px-4 py-1.5 text-text-primary sm:flex-none sm:px-6 ${
+          value === "favorites" ? "bg-accent text-white" : "hover:bg-black/5 dark:hover:bg-white/5"
         }`}
       >
         Favorites

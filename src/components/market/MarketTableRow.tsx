@@ -24,7 +24,7 @@ export default function MarketTableRow({
   onToggleHidden,
 }: MarketTableRowProps) {
   return (
-    <tr className="border-line hover:bg-panel-2 border-b border-white/10">
+    <tr className="border-b border-border hover:bg-surface-2">
       <td className="flex items-center px-5 py-3">
         <img
           src={`https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons/svg/color/${pair.icon}.svg`}
@@ -32,23 +32,23 @@ export default function MarketTableRow({
           className="h-8 w-8 object-contain"
         />
         <div className="ml-3 flex flex-col">
-          <span className="font-semibold text-white">{pair.displaySymbol}</span>
-          <span className="text-text-dim text-sm text-gray-500">{pair.name}</span>
+          <span className="font-semibold text-text-primary">{pair.displaySymbol}</span>
+          <span className="text-sm text-muted">{pair.name}</span>
         </div>
       </td>
 
       {priceData === undefined ? (
         <>
           <td className="px-5 py-3">
-            <div className="ml-auto h-4 w-24 animate-pulse rounded bg-white/10" />
+            <div className="ml-auto h-4 w-24 animate-pulse rounded bg-surface-2" />
           </td>
           <td className="px-5 py-3">
-            <div className="ml-auto h-4 w-14 animate-pulse rounded bg-white/10" />
+            <div className="ml-auto h-4 w-14 animate-pulse rounded bg-surface-2" />
           </td>
         </>
       ) : (
         <>
-          <td className="px-5 py-3 text-right font-mono text-white">
+          <td className="px-5 py-3 text-right font-mono text-text-primary">
             <div className="flex items-center justify-end gap-2">
               {formatPrice(priceData.price)}
               <PriceDirectionIcon direction={priceData.direction} />

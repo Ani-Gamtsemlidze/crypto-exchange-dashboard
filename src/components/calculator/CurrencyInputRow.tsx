@@ -27,7 +27,7 @@ export default function CurrencyInputRow({
     onValueChange?.(val);
   }
   return (
-    <div className="flex items-center gap-2 rounded-md border border-white/10 bg-slate-800 px-3 py-2 text-sm text-white">
+    <div className="flex items-center gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-sm text-text-primary">
       <input
         type="text"
         inputMode="decimal"
@@ -37,11 +37,11 @@ export default function CurrencyInputRow({
         readOnly={!editable}
         placeholder="0.00"
         className={`min-w-0 flex-1 [appearance:textfield] bg-transparent px-1 py-1 outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${
-          editable ? "text-white" : "text-gray-300"
+          editable ? "text-text-primary" : "text-muted"
         }`}
       />
 
-      <div className="h-6 w-px bg-white/10" />
+      <div className="h-6 w-px bg-border" />
 
       <CurrencyDropdown
         value={currency}
