@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { CRYPTO_PAIRS } from "../constants/cryptoPairs";
 import type { MarketPrice } from "../types/marketTable";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { percentChange } from "../utils/percentChange";
 
 interface UsePriceAlertsParams {
   prices: Record<string, MarketPrice>;
@@ -18,16 +19,11 @@ export function usePriceAlerts({ prices, initialPrices }: UsePriceAlertsParams) 
       const currentPrice = prices[symbol]?.price;
       const initialPrice = initialPrices[symbol];
 
-      if (
-        currentPrice === undefined ||
-        !Number.isFinite(currentPrice) ||
-        !Number.isFinite(initialPrice) ||
-        initialPrice <= 0
-      ) {
-        return;
-      }
+      if (currentPrice === undefined || initialPrice === undefined) return;
 
-      const percentageChange = ((currentPrice - initialPrice) / initialPrice) * 100;
+      const percentageChange = percentChange(initialPrice, currentPrice);
+      if (percentageChange === null) return;
+
       const increased = percentageChange > 0;
       const absChange = Math.abs(percentageChange);
       const formatAlertPrice = (price: number) =>

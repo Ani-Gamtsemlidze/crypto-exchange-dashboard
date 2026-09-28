@@ -14,7 +14,7 @@ export default function MarketCard({
   onToggleHidden,
 }: MarketCardProps) {
   return (
-    <div className="border-b bg-surface border-border p-4 last:border-b-0">
+    <div className="border-b border-border bg-surface p-4 last:border-b-0">
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center">
           <img

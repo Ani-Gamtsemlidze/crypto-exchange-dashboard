@@ -2,6 +2,7 @@ import { ArrowDownUp, EqualApproximately } from "lucide-react";
 import { useState } from "react";
 import type { MarketPrice } from "../../types/marketTable";
 import CurrencyInputRow from "./CurrencyInputRow";
+import { calculateConversion } from "../../utils/calculateConversion";
 
 export default function CurrencySelect({ prices }: { prices: Record<string, MarketPrice> }) {
   const [source, setSource] = useState("BTCUSDT");
@@ -11,14 +12,7 @@ export default function CurrencySelect({ prices }: { prices: Record<string, Mark
   const sourcePrice = prices[source]?.price;
   const targetPrice = prices[target]?.price;
 
-  const rate =
-    sourcePrice !== undefined && targetPrice !== undefined && targetPrice > 0
-      ? sourcePrice / targetPrice
-      : null;
-  const convertedAmount =
-    rate !== null && amount !== "" && Number.isFinite(Number(amount)) && Number(amount) >= 0
-      ? (Number(amount) * rate).toFixed(6)
-      : "";
+  const { rate, convertedAmount } = calculateConversion(amount, sourcePrice, targetPrice);
 
   function handleSwitch() {
     setTarget(source);
