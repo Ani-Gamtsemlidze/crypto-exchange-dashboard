@@ -14,7 +14,7 @@ export default function MarketCard({
   onToggleHidden,
 }: MarketCardProps) {
   return (
-    <div className="border-b border-white/10 p-4 last:border-b-0">
+    <div className="border-b bg-surface border-border p-4 last:border-b-0">
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center">
           <img
@@ -23,8 +23,8 @@ export default function MarketCard({
             className="h-7 w-7 shrink-0 object-contain sm:h-9 sm:w-9"
           />
           <div className="ml-3 flex min-w-0 flex-col">
-            <span className="font-semibold text-white">{pair.displaySymbol}</span>
-            <span className="text-sm text-gray-500">{pair.name}</span>
+            <span className="font-semibold text-text-primary">{pair.displaySymbol}</span>
+            <span className="text-sm text-muted">{pair.name}</span>
           </div>
         </div>
 
@@ -37,15 +37,15 @@ export default function MarketCard({
         </div>
       </div>
 
-      <div className="mt-2 flex items-center justify-between pl-12">
+      <div className="mt-2 flex items-center justify-between lg:pl-12">
         {priceData === undefined ? (
           <>
-            <div className="h-4 w-24 animate-pulse rounded bg-white/10" />
-            <div className="h-3 w-12 animate-pulse rounded bg-white/10" />
+            <div className="h-4 w-24 animate-pulse rounded bg-surface-2" />
+            <div className="h-3 w-12 animate-pulse rounded bg-surface-2" />
           </>
         ) : (
           <>
-            <div className="flex items-center gap-2 font-mono text-white">
+            <div className="flex items-center gap-2 font-mono text-text-primary">
               {formatPrice(priceData.price)}
               <PriceDirectionIcon direction={priceData.direction} />
             </div>

@@ -22,12 +22,12 @@ export default function HiddenCardList({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-t border-white/10">
+    <div className="border-t border-border bg-surface-2">
       <button
         type="button"
         onClick={() => setIsOpen((previous) => !previous)}
         aria-expanded={isOpen}
-        className="flex w-full items-center gap-2 p-4 text-left text-sm text-gray-300 hover:bg-white/5"
+        className="flex w-full items-center gap-2 p-4 text-left text-sm text-text-primary hover:bg-black/5 dark:hover:bg-white/5"
       >
         <EyeOff className="size-4 text-muted" />
         <span className="flex-1">Hidden currencies ({hiddenPairs.length})</span>
