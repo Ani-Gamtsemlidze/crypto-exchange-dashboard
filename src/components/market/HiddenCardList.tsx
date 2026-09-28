@@ -27,7 +27,7 @@ export default function HiddenCardList({
         type="button"
         onClick={() => setIsOpen((previous) => !previous)}
         aria-expanded={isOpen}
-        className="flex w-full items-center gap-2 p-4 text-left text-sm text-text-primary hover:bg-black/5 dark:hover:bg-white/5"
+        className="flex w-full cursor-pointer items-center gap-2 p-4 text-left text-sm text-text-primary hover:bg-black/5 dark:hover:bg-white/5"
       >
         <EyeOff className="size-4 text-muted" />
         <span className="flex-1">Hidden currencies ({hiddenPairs.length})</span>

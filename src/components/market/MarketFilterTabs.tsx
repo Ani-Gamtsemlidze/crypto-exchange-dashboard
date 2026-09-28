@@ -8,7 +8,7 @@ export default function MarketFilterTabs({ value, onChange }: FilterTabsProps) {
       <button
         type="button"
         onClick={() => onChange("all")}
-        className={`h-full flex-1 rounded px-4 py-1.5 text-text-primary sm:flex-none sm:px-6 ${
+        className={`h-full flex-1 cursor-pointer rounded px-4 py-1.5 text-text-primary sm:flex-none sm:px-6 ${
           value === "all" ? "bg-accent text-white" : "hover:bg-black/5 dark:hover:bg-white/5"
         }`}
       >
@@ -18,7 +18,7 @@ export default function MarketFilterTabs({ value, onChange }: FilterTabsProps) {
       <button
         type="button"
         onClick={() => onChange("favorites")}
-        className={`h-full flex-1 rounded px-4 py-1.5 text-text-primary sm:flex-none sm:px-6 ${
+        className={`h-full flex-1 cursor-pointer rounded px-4 py-1.5 text-text-primary sm:flex-none sm:px-6 ${
           value === "favorites" ? "bg-accent text-white" : "hover:bg-black/5 dark:hover:bg-white/5"
         }`}
       >

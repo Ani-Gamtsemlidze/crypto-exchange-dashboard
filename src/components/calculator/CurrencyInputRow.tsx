@@ -27,7 +27,7 @@ export default function CurrencyInputRow({
     onValueChange?.(val);
   }
   return (
-    <div className="flex items-center gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-sm text-text-primary">
+    <div className="flex items-center cursor-pointer gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-sm text-text-primary">
       <input
         type="text"
         inputMode="decimal"

@@ -28,7 +28,7 @@ export default function MarketSort({ value, onChange }: MarketSortProps) {
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger
         aria-label="Sort currencies"
-        className="bold flex min-h-9 items-center justify-between gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-sm text-text-primary"
+        className="bold cursor-pointer flex min-h-9 items-center justify-between gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 text-sm text-text-primary"
       >
         <div className="flex items-center justify-center">
           <span>{selected?.shortLabel ?? "Sort"}</span>
@@ -54,7 +54,7 @@ export default function MarketSort({ value, onChange }: MarketSortProps) {
                 onChange(option.value);
                 setOpen(false);
               }}
-              className={`flex w-full items-center gap-4 rounded px-3 py-2 text-left hover:bg-border focus-visible:outline-2 focus-visible:outline-accent dark:hover:bg-white/10 ${
+              className={`flex w-full items-center cursor-pointer gap-4 rounded px-3 py-2 text-left hover:bg-border focus-visible:outline-2 focus-visible:outline-accent dark:hover:bg-white/10 ${
                 value === option.value ? "bg-border dark:bg-white/10" : ""
               }`}
             >
